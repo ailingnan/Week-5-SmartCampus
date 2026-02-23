@@ -1,11 +1,12 @@
 -- 02_create_tables.sql
--- 你现在应该已经在：TRAINING_DB.UMKC_RAG
--- （如果不确定，可以先跑：SELECT CURRENT_DATABASE(), CURRENT_SCHEMA();）
+-- You should currently be in: TRAINING_DB.UMKC_RAG
+-- (If unsure, run: SELECT CURRENT_DATABASE(), CURRENT_SCHEMA();)
+
 USE WAREHOUSE LEARNER_WH;
 USE DATABASE TRAINING_DB;
 USE SCHEMA UMKC_RAG;
 
--- 1) 文档元信息表：每个 PDF 一行
+-- 1) Document Metadata Table: One row per PDF
 CREATE TABLE IF NOT EXISTS DOCS (
   DOC_ID STRING DEFAULT UUID_STRING(),
   DOC_NAME STRING NOT NULL,
@@ -15,7 +16,7 @@ CREATE TABLE IF NOT EXISTS DOCS (
   CONSTRAINT PK_DOCS PRIMARY KEY (DOC_ID)
 );
 
--- 2) 文档切块表：每个 chunk 一行
+-- 2) Document Chunks Table: One row per text segment
 CREATE TABLE IF NOT EXISTS DOC_CHUNKS (
   DOC_ID STRING NOT NULL,
   CHUNK_ID INTEGER NOT NULL,
@@ -25,8 +26,8 @@ CREATE TABLE IF NOT EXISTS DOC_CHUNKS (
   CONSTRAINT PK_DOC_CHUNKS PRIMARY KEY (DOC_ID, CHUNK_ID)
 );
 
--- 3) Embedding 特征表：每个 chunk 一行 embedding
--- 注意：EMBEDDING 用 ARRAY 存（后面 Python 写回会用到）
+-- 3) Embedding Feature Table: One row per chunk embedding
+-- Note: EMBEDDING is stored as an ARRAY (used when writing back from Python)
 CREATE TABLE IF NOT EXISTS CHUNK_EMBEDDINGS (
   DOC_ID STRING NOT NULL,
   CHUNK_ID INTEGER NOT NULL,
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS CHUNK_EMBEDDINGS (
   CONSTRAINT PK_CHUNK_EMBEDDINGS PRIMARY KEY (DOC_ID, CHUNK_ID, EMBEDDING_MODEL, EMBEDDING_VERSION)
 );
 
--- 4) Pipeline 日志表：记录 ingestion / embedding / query 等运行情况
+-- 4) Pipeline Logs Table: Tracks execution of ingestion, embedding, and queries
 CREATE TABLE IF NOT EXISTS PIPELINE_LOGS (
   RUN_ID STRING NOT NULL,
   STAGE STRING NOT NULL,
