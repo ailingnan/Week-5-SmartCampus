@@ -1,7 +1,9 @@
 # Week-5-SmartCampus
 # HappyGroup: Smart Campus Digital Twin
 ### Trust-Aware Multimodal GenAI for UMKC Information & Decision Support
+### Demo Video
 
+▶ Watch Demo on Google Drive (https://drive.google.com/file/d/12sX22TeGd3j1BOOBwKp3kaGvAJtkJVeo/view?usp=sharing)
 ---
 
 ## 1. System Workflow
@@ -171,11 +173,6 @@ python modeling/evaluator.py
 python ingestion/scheduler.py
 ```
 
----
-
-## 6. Demo Video
-
-[▶ Watch Demo on Google Drive](https://drive.google.com/file/d/12sX22TeGd3j1BOOBwKp3kaGvAJtkJVeo/view?usp=sharing)
 
 ---
 
