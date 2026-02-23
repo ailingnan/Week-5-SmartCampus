@@ -118,6 +118,12 @@ def ingest_csv(path: str) -> dict:
         # Standardize column names to uppercase
         df.columns = [c.strip().upper() for c in df.columns]
 
+     if "CHUNK_TEXT" in df.columns:
+            # fillna("") prevents the script from crashing on empty PDF pages
+            df["TEXT_LENGTH"] = df["CHUNK_TEXT"].fillna("").str.len()
+        else:
+            raise ValueError("CSV is missing the 'CHUNK_TEXT' column")
+
         missing = REQUIRED_COLS - set(df.columns)
         if missing:
             raise ValueError(f"Missing columns: {missing}")
@@ -134,6 +140,7 @@ def ingest_csv(path: str) -> dict:
               (DOC_NAME, PAGE_NUM, CHUNK_ID, CHUNK_TEXT, TEXT_LENGTH)
             VALUES (%s,%s,%s,%s,%s)
             """
+            # Convert DataFrame rows to a list of tuples for batch insertion
             rows = [
                 (r["DOC_NAME"], int(r["PAGE_NUM"]), str(r["CHUNK_ID"]),
                  r["CHUNK_TEXT"], int(r["TEXT_LENGTH"]))
