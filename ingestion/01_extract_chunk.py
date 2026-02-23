@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 import fitz  # pymupdf
+from tqdm import tqdm
 
 PDF_DIR = "data"
 OUT_CSV = "data/processed/chunks.csv"
