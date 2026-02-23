@@ -20,41 +20,15 @@ The **HappyGroup** Smart Campus system is a production-grade data science pipeli
 
 Our system follows a 4-tier modular architecture designed for high reliability and trust calibration.
 
-```
-┌─────────────────────────────────────┐
-│          SOURCE LAYER               │
-│  Local /data — UMKC PDFs & CSVs    │
-└────────────────┬────────────────────┘
-                 │ ETL (Python)
-┌────────────────▼────────────────────┐
-│        PROCESSING LAYER             │
-│  01_extract_chunk.py  →  chunks.csv │
-│  scheduler.py  →  automated ingest  │
-│  feature_store.py  →  keyword feats │
-└────────────────┬────────────────────┘
-                 │ RSA Auth
-┌────────────────▼────────────────────┐
-│         STORAGE LAYER (Snowflake)   │
-│  DOC_CHUNKS_RAW      (staging)      │
-│  DOC_CHUNKS_FEATURED (production)   │
-│  FEATURE_STORE       (versioned)    │
-│  EVAL_METRICS        (performance)  │
-│  INGEST_LOG          (lineage)      │
-└────────────────┬────────────────────┘
-                 │ Streamlit
-┌────────────────▼────────────────────┐
-│       APPLICATION LAYER             │
-│  app.py — PolicyPulse Dashboard     │
-│  🔍 Search + AI Answer (Groq LLaMA) │
-│  📈 Analytics Dashboard             │
-│  📊 Evaluation Comparison           │
-│  🔮 What-if Simulation              │
-│  📥 Data Ingestion                  │
-│  🔧 Pipeline Monitoring             │
-└─────────────────────────────────────┘
-```
+**Tier 1 — Source Layer:** All raw data originates from a local `/data` directory containing authoritative UMKC artifacts, including PDFs such as the Jeanne Clery Act Report and supplementary CSV datasets.
 
-**Key Snowflake Tables:**
+**Tier 2 — Processing Layer (Python ETL):** Raw documents are ingested and cleaned by `01_extract_chunk.py`, which segments text into 1,200-character chunks with 200-character overlaps and outputs a structured `chunks.csv`. Ongoing ingestion is handled by `scheduler.py`, which automatically detects and uploads new files, while `feature_store.py` extracts and versions keyword-level features from every user query.
+
+**Tier 3 — Storage Layer (Snowflake):** All processed data is persisted in Snowflake under the `UMKC_RAG` schema via RSA key authentication. The storage layer consists of five purpose-built tables: `DOC_CHUNKS_RAW` for initial staging, `DOC_CHUNKS_FEATURED` for production-ready text with engineered features, `FEATURE_STORE` for versioned keyword records, `EVAL_METRICS` for automated retrieval performance logging, and `INGEST_LOG` for file-level lineage and deduplication tracking.
+
+**Tier 4 — Application Layer (Streamlit):** The `app.py` PolicyPulse dashboard serves as the user-facing interface, connecting directly to Snowflake to power six integrated modules: an AI-assisted search tab backed by Groq LLaMA, an analytics dashboard, an evaluation comparison view, a what-if scenario simulator, a data ingestion portal, and a real-time pipeline monitoring panel.
+
+**Monitoring:** Throughout all tiers, `pipeline_logs.csv` maintains a continuous audit trail of every ingestion and LLM generation run, recording high-resolution timestamps, success/failure status, row counts, and end-to-end latency.
 
 | Table | Purpose |
 |-------|---------|
@@ -112,7 +86,6 @@ Week-5-SmartCampus/
 ├── CONTRIBUTIONS.md
 ├── pipeline_logs.csv
 ├── requirements.txt
-├── .env.example
 │
 ├── sql/
 │   ├── 01_create_schema.sql
