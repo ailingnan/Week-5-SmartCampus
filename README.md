@@ -51,7 +51,7 @@ As a three-member team, we implemented three technical extensions beyond the cor
 ## 4. Setup & Reproducibility
 
 ### Prerequisites
-* Python 3.9+
+* Python 
 * Snowflake Account Access (RSA Key Authentication)
 * Required Libraries: `pip install -r requirements.txt`
 
@@ -65,14 +65,8 @@ As a three-member team, we implemented three technical extensions beyond the cor
 
 ---
 
-## 5. Team Contributions (HappyGroup)
-| Member | Primary Ownership | Responsibilities |
-| :--- | :--- | :--- |
-| **Ailing Nan** | Project Lead | Snowflake Architect, Schema Design, Staging Logic, RSA Auth setup. |
-| **Lyza Iamrache** | Systems Lead | Python Ingestion Pipeline, Logging Extension, PDF ETL logic. |
-| **Gia Huynh** | Evaluation Lead | Feature Engineering SQL, Retrieval Optimization, Evaluator Logic. |
-
 ---
 
 ## 6. Demo Video
+https://drive.google.com/file/d/12sX22TeGd3j1BOOBwKp3kaGvAJtkJVeo/view?usp=sharing
 ***
