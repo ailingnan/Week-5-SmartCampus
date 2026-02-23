@@ -49,4 +49,4 @@ This document clearly outlines the individual responsibilities, technical owners
 * **Project Demo:** Jointly produced the final technical demo illustrating the full lifecycle from raw PDF ingestion to a grounded LLM response.
 
 ---
-*Document Version: 1.2 | Last Updated: February 22, 2026*
+
