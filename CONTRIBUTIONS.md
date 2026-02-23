@@ -9,9 +9,9 @@ This document clearly outlines the individual responsibilities, technical owners
 
 | Member | Primary Role | Technical Ownership |
 | :--- | :--- | :--- |
-| **Ailing Nan** | Project Lead | Snowflake Architecture, RSA Security, Database Governance |
-| **Lyza Iamrache** | Systems Lead | Python ETL Pipeline, Scheduled Ingestion, Logging & Monitoring |
-| **Gia Huynh** | Evaluation & UI Lead | Streamlit Application, Feature Store, RAG Evaluation Metrics |
+| **Ailing Nan** | Project Lead | Python ETL Pipeline, , RSA Security, Database Governance |
+| **Lyza Iamrache** | Systems Lead |Snowflake Architecture, Ingestion, Logging & Monitoring |
+| **Gia Huynh** | Evaluation & UI Lead | Streamlit Application, Feature Store. |
 
 ---
 
