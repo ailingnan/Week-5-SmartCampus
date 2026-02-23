@@ -75,4 +75,4 @@ As a three-member team, we implemented three technical extensions beyond the cor
 ---
 
 ## 6. Demo Video
-**[Link to Team Demo Video (≈ 3 minutes)]** *Our video demonstrates the automated ETL process, the Snowflake table population, and the real-world retrieval of safety features.*
+***
