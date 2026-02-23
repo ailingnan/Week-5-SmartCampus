@@ -44,13 +44,3 @@ In accordance with the Capstone Sprint requirements for a 3-member team, we have
 
 ---
 
-## 4. Setup & Reproducibility
-
-### Prerequisites
-* Python 3.8+
-* Snowflake Account Access
-
-### Installation
-1. **Install Python Libraries:**
-   ```bash
-   pip install pypdf
