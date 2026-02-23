@@ -1,50 +1,52 @@
 # Team Contributions: HappyGroup
 ### Project: Smart Campus Digital Twin (UMKC)
 
-This document outlines the specific responsibilities and technical contributions of each member of **HappyGroup** for the Smart Campus Capstone project.
+This document clearly outlines the individual responsibilities, technical ownership, and collaborative milestones achieved by the members of **HappyGroup**.
 
 ---
 
-## 1. Team Roles & Ownership Overview
+## 1. Team Roles & Technical Ownership
 
 | Member | Primary Role | Technical Ownership |
 | :--- | :--- | :--- |
-| **Ailing Nan** | Project Lead | Snowflake Architecture, Database Schema, RSA Authentication |
-| **Lyza Iamrache** | Systems Lead | Python ETL Pipeline, PDF Extraction, Automated Logging |
-| **Gia Huynh** | Evaluation Lead | Feature Engineering, Retrieval Optimization, Metrics Logic |
+| **Ailing Nan** | Project Lead | Snowflake Architecture, RSA Security, Database Governance |
+| **Lyza Iamrache** | Systems Lead | Python ETL Pipeline, Scheduled Ingestion, Logging & Monitoring |
+| **Gia Huynh** | Evaluation & UI Lead | Streamlit Application, Feature Store, RAG Evaluation Metrics |
 
 ---
 
 ## 2. Detailed Member Contributions
 
 ### **Ailing Nan (Project Lead)**
-* **Database Architecture:** Designed and implemented the Snowflake environment using a multi-schema approach.
-* **Security & Auth:** Configured the RSA Key Pair authentication (using `key.sql`) to ensure secure programmatic access from Python to Snowflake.
-* **Staging Logic:** Developed the staging workflow (`01_create_schema.sql` through `03_create_staging_tables.sql`) to manage the transition from raw CSV data to relational tables.
-* **Project Governance:** Managed version control (GitHub) and coordinated the integration of SQL scripts with Python modules.
+* **Snowflake Infrastructure:** Designed the core relational schema (`UMKC_RAG`) and established the staging-to-featured data flow.
+* **Security & Authentication:** Implemented the RSA Key Pair authentication mechanism (`rsa_key.p8`) used across all Python modules to ensure secure, passwordless cloud communication.
+* **Database Logic:** Authored the fundamental DDL scripts (`01_create_schema.sql`, `02_create_tables.sql`) and managed the environment configuration (`.env`).
+* **Governance:** Ensured all data chunks were traceable back to their source documents via metadata linking.
 
 
 
 ### **Lyza Iamrache (Systems Lead)**
-* **Python ETL Pipeline:** Developed `01_extract_chunk.py` to handle complex PDF extraction, including cleaning null bytes and specialized character encoding.
-* **Chunking Strategy:** Implemented the 1200-character chunking logic with a 200-character overlap to ensure semantic continuity for the RAG system.
-* **Monitoring System:** Created the automated logging extension that generates `pipeline_logs.csv`, tracking every ingestion run's timestamp, record count, and success status.
-* **Resource Management:** Managed the `requirements.txt` and environment configurations for the team.
+* **Inference & Ingestion Pipeline:** Developed the PDF extraction logic and the automated ingestion worker (`scheduler.py`).
+* **Scheduled Workflows:** Designed the "Inbox/Done" polling system that automatically detects, hashes, and uploads new CSV datasets to Snowflake.
+* **Pipeline Monitoring:** Created the comprehensive logging extension (`pipeline_logs.csv`) which tracks success rates, row counts, and latency across the ETL and LLM generation stages.
+* **System Reliability:** Optimized the chunking strategy (1200-character windows) to balance context retention with retrieval speed.
 
 
 
-### **Gia Huynh (Evaluation Lead)**
-* **Feature Engineering:** Developed `04_feature_engineering.sql` to transform raw text chunks into high-quality features, including metadata generation and noise filtering.
-* **Retrieval Optimization:** Designed `05_retrieval_queries.sql` using ranked keyword density (ILIKE) to improve the accuracy of the "Digital Twin" response grounding.
-* **Performance Metrics:** Built the `evaluator.py` logic to calculate `AVG_SCORE` and `LATENCY_MS`, allowing the team to measure the reliability of the system.
-* **Data Validation:** Conducted the final validation of retrieved chunks against the original UMKC Clery Act Report.
+### **Gia Huynh (Evaluation & UI Lead)**
+* **Interface Development:** Built the **UMKC PolicyPulse** dashboard (`app.py`), integrating real-time chat with complex analytics and monitoring tabs.
+* **Feature Store & Versioning:** Developed `feature_store.py` to log and version-control keyword distributions, enabling side-by-side comparison of different system iterations.
+* **Evaluation Framework:** Implemented the `evaluator.py` module to capture retrieval metrics (AVG/MAX/MIN scores) and grounding faithfulness.
+* **Simulation Logic:** Designed the "What-if Simulation" tab to allow users to test the digital twin's reasoning across hypothetical campus scenarios.
+
+
 
 ---
 
-## 3. Collaborative Efforts
-Beyond individual tasks, the team collaborated on the following:
-* **Architecture Design:** Jointly developed the 4-tier system architecture to ensure the Python and Snowflake layers were perfectly synced.
-* **Demo Production:** Collaboratively recorded and edited the 3-minute project demo video.
-* **Troubleshooting:** Worked together to resolve pathing issues and Snowflake connector errors during the integration phase.
+## 3. Collaborative Milestones
+* **Architecture Integration:** The team jointly designed the 4-tier system (Source, Processing, Storage, Application) to ensure seamless communication between the Streamlit UI and Snowflake.
+* **Evaluation Strategy:** Collaborative definition of "Faithfulness" and "Refusal" behaviors to ensure the system prioritizes trust over fluency.
+* **Project Demo:** Jointly produced the final technical demo illustrating the full lifecycle from raw PDF ingestion to a grounded LLM response.
 
 ---
+*Document Version: 1.2 | Last Updated: February 22, 2026*
