@@ -75,12 +75,16 @@ def extract_keywords(query: str, max_terms: int = 6):
 # ── Groq LLM Generation ─────────────────────────────────────────
 @st.cache_resource
 def get_groq_client():
-    return Groq(api_key=os.getenv("GROQ_API_KEY"))
+    key = os.getenv("GROQ_API_KEY")
+    if not key:
+        st.error("⚠️ GROQ_API_KEY is not set in your .env file. AI answers are disabled.")
+        return None
+    return Groq(api_key=key)
 
 def generate_answer(question: str, chunks_df: pd.DataFrame, model: str = "llama3-8b-8192") -> str:
     """Concatenates retrieved Chunks into Context and calls Groq to generate a natural language response"""
     if chunks_df.empty:
-        return "⚠️ No relevant documents found. Unable to generate an answer."
+        return "⚠️ No relevant documents found. Unable to generate an answer.", 0
 
     # Take top 5 chunks to build context (preventing token limit overflow)
     context_parts = []
@@ -159,7 +163,9 @@ def _run_retrieval(user_query: str, topk: int):
     ORDER BY SCORE DESC, TEXT_LENGTH DESC
     LIMIT {int(topk)};
     """
-    params = [f"%{t}%" for t in terms] * 2
+    score_params = [f"%{t}%" for t in terms]  # for IFF() expressions in SELECT
+    where_params  = [f"%{t}%" for t in terms]  # for ILIKE clauses in WHERE
+    params = score_params + where_params
 
     conn = sf_connect()
     try:
@@ -170,7 +176,7 @@ def _run_retrieval(user_query: str, topk: int):
         return pd.DataFrame(rows, columns=cols), terms
     finally:
         try: cur.close()
-        except: pass
+        except Exception: pass
         conn.close()
 
 # ── What-if Scenario Simulation ─────────────────────────────────
