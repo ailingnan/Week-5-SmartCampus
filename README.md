@@ -176,4 +176,4 @@ python ingestion/scheduler.py
 
 ---
 
-*HappyGroup · UMKC Data Science · 2025*
+*HappyGroup · UMKC Data Science · 2026*
